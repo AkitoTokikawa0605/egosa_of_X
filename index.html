@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
@@ -12,12 +13,14 @@ body {
   color: white;
 }
 
+/* ヘッダー */
 .header {
   text-align: center;
   padding: 20px;
   background: rgba(0,0,0,0.5);
 }
 
+/* コンテンツ */
 .container {
   display: flex;
   flex-direction: column;
@@ -26,6 +29,7 @@ body {
   padding: 20px;
 }
 
+/* 説明 */
 .desc {
   background: rgba(0,0,0,0.4);
   padding: 15px;
@@ -34,6 +38,7 @@ body {
   text-align: center;
 }
 
+/* ボックス */
 .box {
   background: rgba(100,100,100,0.7);
   padding: 20px;
@@ -41,6 +46,7 @@ body {
   text-align: center;
 }
 
+/* ボタン */
 button {
   margin: 5px;
   padding: 10px 15px;
@@ -48,25 +54,52 @@ button {
   border: none;
   font-weight: bold;
   cursor: pointer;
+  transition: 0.2s;
 }
 
-.pink { background: #ff7ac3; }
-.yellow { background: #ffd700; }
-.blue { background: #6ecbff; }
+button:hover {
+  transform: scale(1.1);
+}
 
+.pink { background: #ff7ac3; color: black; }
+.yellow { background: #ffd700; color: black; }
+.blue { background: #6ecbff; color: black; }
+
+/* 日付 */
+input {
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  background: #333;
+  color: white;
+}
+
+/* フッター */
 .footer {
   text-align: center;
   padding: 20px;
   background: rgba(0,0,0,0.5);
 }
 
+/* アイコン */
 .icons {
   display: flex;
   gap: 20px;
   justify-content: center;
   margin-bottom: 10px;
 }
+
+.icons img {
+  width: 40px;
+  filter: invert(1);
+  transition: 0.2s;
+}
+
+.icons img:hover {
+  transform: scale(1.2);
+}
 </style>
+
 </head>
 
 <body>
@@ -78,24 +111,27 @@ button {
 <div class="container">
 
 <div class="desc">
-エゴサツールは <span style="color:#ff7ac3;">魔灰えん</span> さんを推す為のツールです！<br>
-今後色々出来るように調整していきますので是非使用してみてください！
+  エゴサツールは
+  <span style="color:#ff7ac3; font-weight:bold;">魔灰えん</span>さん
+  を推す為のツールです！<br>
+  今後色々出来るように調整していきますので是非使用してみてください！
 </div>
 
 <div class="box">
-<h2>魔灰えん</h2>
-<button class="pink" onclick="searchX('魔灰えん')">X</button>
-<button class="yellow" onclick="searchYahoo('魔灰えん')">Yahoo</button>
-<button class="blue" onclick="searchDate('魔灰えん')">日付</button>
+  <h2>魔灰えん</h2>
+  <button class="pink" onclick="searchX('魔灰えん')">#検索</button>
+  <button class="yellow" onclick="searchYahoo('魔灰えん')">Yahoo</button>
+  <button class="blue" onclick="searchDate('魔灰えん')">日付</button>
 </div>
 
 <div class="box">
-<h2>魔灰絵</h2>
-<button class="pink" onclick="searchX('魔灰絵')">X</button>
-<button class="yellow" onclick="searchYahoo('魔灰絵')">Yahoo</button>
-<button class="blue" onclick="searchDate('魔灰絵')">日付</button>
+  <h2>魔灰絵</h2>
+  <button class="pink" onclick="searchX('魔灰絵')">#検索</button>
+  <button class="yellow" onclick="searchYahoo('魔灰絵')">Yahoo</button>
+  <button class="blue" onclick="searchDate('魔灰絵')">日付</button>
 </div>
 
+<p>日付検索</p>
 <input type="date" id="date">
 
 </div>
@@ -103,12 +139,23 @@ button {
 <div class="footer">
 
 <div class="icons">
-<a href="https://x.com/makaien_vtuber" target="_blank">X</a>
-<a href="https://www.youtube.com/@makaien_vtuber" target="_blank">YouTube</a>
-<a href="https://www.twitch.tv/makaien_vtuber" target="_blank">Twitch</a>
+
+<a href="https://x.com/makaien_vtuber" target="_blank">
+  <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/x.svg">
+</a>
+
+<a href="https://www.youtube.com/@makaien_vtuber" target="_blank">
+  <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg">
+</a>
+
+<a href="https://www.twitch.tv/makaien_vtuber" target="_blank">
+  <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/twitch.svg">
+</a>
+
 </div>
 
 <p>作成者：Akito</p>
+<p style="font-size:12px; color:#aaa;">v1.0.0 β版</p>
 
 </div>
 
@@ -116,19 +163,25 @@ button {
 function searchX(word){
   window.open(`https://x.com/search?q=%23${encodeURIComponent(word)}&f=live`)
 }
+
 function searchYahoo(word){
   window.open(`https://search.yahoo.co.jp/realtime/search?p=${encodeURIComponent(word)}`)
 }
+
 function searchDate(word){
   const date = document.getElementById("date").value
   if(!date){ alert("日付選んで！"); return }
+
   const d = new Date(date)
   d.setDate(d.getDate()+1)
+
   const yyyy = d.getFullYear()
   const mm = String(d.getMonth()+1).padStart(2,'0')
   const dd = String(d.getDate()).padStart(2,'0')
+
   const until = `${yyyy}-${mm}-${dd}`
   const query = `${word} since:${date} until:${until}`
+
   window.open(`https://x.com/search?q=${encodeURIComponent(query)}&f=live`)
 }
 </script>
