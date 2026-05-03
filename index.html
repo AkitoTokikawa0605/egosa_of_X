@@ -1,71 +1,109 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <title>エゴサツール</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: sans-serif;
-      background: linear-gradient(to bottom right, black, purple, black);
-      color: white;
-      text-align: center;
-    }
-    .box {
-      background: rgba(50,50,50,0.8);
-      margin: 20px auto;
-      padding: 20px;
-      border-radius: 10px;
-      width: 300px;
-    }
-    button {
-      margin: 5px;
-      padding: 10px 15px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-    .pink { background: pink; }
-    .yellow { background: gold; }
-    .blue { background: skyblue; }
-  </style>
+<meta charset="UTF-8">
+<title>エゴサツール</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: sans-serif;
+  background: linear-gradient(to bottom right, black, #2a003f, black);
+  color: white;
+}
+
+.header {
+  text-align: center;
+  padding: 20px;
+  background: rgba(0,0,0,0.5);
+}
+
+h1 {
+  font-size: 40px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  padding: 20px;
+}
+
+.box {
+  background: rgba(100,100,100,0.8);
+  padding: 20px;
+  border-radius: 15px;
+  text-align: center;
+}
+
+button {
+  margin: 5px;
+  padding: 10px 15px;
+  border-radius: 10px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.pink { background: #ff7ac3; }
+.yellow { background: #ffd700; }
+.blue { background: #6ecbff; }
+
+.footer {
+  text-align: center;
+  padding: 20px;
+  background: rgba(0,0,0,0.5);
+}
+</style>
 </head>
+
 <body>
 
-<h1>エゴサツール</h1>
+<div class="header">
+  <h1>エゴサツール</h1>
+</div>
+
+<div class="container">
 
 <div class="box">
-  <h2>魔灰えん</h2>
-  <button class="pink" onclick="searchX('魔灰えん')">X検索</button>
-  <button class="yellow" onclick="searchYahoo('魔灰えん')">Yahoo</button>
-  <button class="blue" onclick="searchDate('魔灰えん')">日付</button>
+<h2>魔灰えん</h2>
+<button class="pink" onclick="searchX('魔灰えん')">#検索</button>
+<button class="yellow" onclick="searchYahoo('魔灰えん')">Yahoo</button>
+<button class="blue" onclick="searchDate('魔灰えん')">日付</button>
 </div>
 
 <div class="box">
-  <h2>魔灰絵</h2>
-  <button class="pink" onclick="searchX('魔灰絵')">X検索</button>
-  <button class="yellow" onclick="searchYahoo('魔灰絵')">Yahoo</button>
-  <button class="blue" onclick="searchDate('魔灰絵')">日付</button>
+<h2>魔灰絵</h2>
+<button class="pink" onclick="searchX('魔灰絵')">#検索</button>
+<button class="yellow" onclick="searchYahoo('魔灰絵')">Yahoo</button>
+<button class="blue" onclick="searchDate('魔灰絵')">日付</button>
 </div>
 
 <input type="date" id="date">
 
+</div>
+
+<div class="footer">
+作成者：Akito<br>
+v1.0.0
+</div>
+
 <script>
-function searchX(word) {
+function searchX(word){
   window.open(`https://x.com/search?q=%23${encodeURIComponent(word)}&f=live`)
 }
 
-function searchYahoo(word) {
+function searchYahoo(word){
   window.open(`https://search.yahoo.co.jp/realtime/search?p=${encodeURIComponent(word)}`)
 }
 
-function searchDate(word) {
+function searchDate(word){
   const date = document.getElementById("date").value
-  if (!date) return alert("日付選んで！")
+  if(!date){ alert("日付選んで！"); return }
 
   const d = new Date(date)
-  d.setDate(d.getDate() + 1)
+  d.setDate(d.getDate()+1)
 
   const yyyy = d.getFullYear()
   const mm = String(d.getMonth()+1).padStart(2,'0')
