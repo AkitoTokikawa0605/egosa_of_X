@@ -12,20 +12,12 @@ body {
   color: white;
 }
 
-/* ヘッダー */
 .header {
   text-align: center;
   padding: 20px;
   background: rgba(0,0,0,0.5);
-  backdrop-filter: blur(10px);
 }
 
-h1 {
-  font-size: 42px;
-  margin: 0;
-}
-
-/* コンテンツ */
 .container {
   display: flex;
   flex-direction: column;
@@ -34,7 +26,6 @@ h1 {
   padding: 20px;
 }
 
-/* 説明 */
 .desc {
   background: rgba(0,0,0,0.4);
   padding: 15px;
@@ -43,7 +34,6 @@ h1 {
   text-align: center;
 }
 
-/* ボックス */
 .box {
   background: rgba(100,100,100,0.7);
   padding: 20px;
@@ -51,7 +41,6 @@ h1 {
   text-align: center;
 }
 
-/* ボタン */
 button {
   margin: 5px;
   padding: 10px 15px;
@@ -59,63 +48,23 @@ button {
   border: none;
   font-weight: bold;
   cursor: pointer;
-  transition: 0.2s;
 }
 
-button:hover {
-  transform: scale(1.1);
-}
+.pink { background: #ff7ac3; }
+.yellow { background: #ffd700; }
+.blue { background: #6ecbff; }
 
-.pink { background: #ff7ac3; color: black; }
-.yellow { background: #ffd700; color: black; }
-.blue { background: #6ecbff; color: black; }
-
-/* 日付 */
-input {
-  padding: 10px;
-  border-radius: 8px;
-  border: none;
-  background: #333;
-  color: white;
-}
-
-/* フッター */
 .footer {
   text-align: center;
   padding: 20px;
   background: rgba(0,0,0,0.5);
 }
 
-/* アイコン */
 .icons {
   display: flex;
   gap: 20px;
   justify-content: center;
   margin-bottom: 10px;
-}
-
-.icon {
-  width: 50px;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  transition: 0.2s;
-}
-
-.icon:hover {
-  transform: scale(1.2);
-}
-
-.x { background: black; }
-.yt { background: red; }
-.tw { background: purple; }
-
-svg {
-  width: 24px;
-  height: 24px;
-  fill: white;
 }
 </style>
 </head>
@@ -129,22 +78,20 @@ svg {
 <div class="container">
 
 <div class="desc">
-  エゴサツールは
-  <span style="color:#ff7ac3; font-weight:bold;">魔灰えん</span>さん
-  を推す為のツールです！<br>
-  今後色々出来るように調整していきますので是非使用してみてください！
+エゴサツールは <span style="color:#ff7ac3;">魔灰えん</span> さんを推す為のツールです！<br>
+今後色々出来るように調整していきますので是非使用してみてください！
 </div>
 
 <div class="box">
 <h2>魔灰えん</h2>
-<button class="pink" onclick="searchX('魔灰えん')">#検索</button>
+<button class="pink" onclick="searchX('魔灰えん')">X</button>
 <button class="yellow" onclick="searchYahoo('魔灰えん')">Yahoo</button>
 <button class="blue" onclick="searchDate('魔灰えん')">日付</button>
 </div>
 
 <div class="box">
 <h2>魔灰絵</h2>
-<button class="pink" onclick="searchX('魔灰絵')">#検索</button>
+<button class="pink" onclick="searchX('魔灰絵')">X</button>
 <button class="yellow" onclick="searchYahoo('魔灰絵')">Yahoo</button>
 <button class="blue" onclick="searchDate('魔灰絵')">日付</button>
 </div>
@@ -156,32 +103,12 @@ svg {
 <div class="footer">
 
 <div class="icons">
-
-<!-- X -->
-<a href="https://x.com/makaien_vtuber" target="_blank" class="icon x">
-<svg viewBox="0 0 24 24">
-<path d="M18.244 2H21l-6.49 7.42L22 22h-6.828l-5.34-6.993L3.5 22H1l6.93-7.92L2 2h6.93l4.82 6.327L18.244 2z"/>
-</svg>
-</a>
-
-<!-- YouTube -->
-<a href="https://www.youtube.com/@makaien_vtuber" target="_blank" class="icon yt">
-<svg viewBox="0 0 24 24">
-<path d="M23.5 6.2s-.23-1.64-.94-2.36c-.9-.95-1.9-.95-2.36-1C16.9 2.5 12 2.5 12 2.5s-4.9 0-8.2.34c-.46.05-1.46.05-2.36 1C.73 4.56.5 6.2.5 6.2S.25 8.1.25 10v1.99c0 1.9.25 3.8.25 3.8s.23 1.64.94 2.36c.9.95 2.08.92 2.6 1.02 1.88.18 7.96.34 7.96.34s4.9-.01 8.2-.35c.46-.05 1.46-.05 2.36-1 .71-.72.94-2.36.94-2.36s.25-1.9.25-3.8V10zM9.75 14.5v-5l4.75 2.5-4.75 2.5z"/>
-</svg>
-</a>
-
-<!-- Twitch -->
-<a href="https://www.twitch.tv/makaien_vtuber" target="_blank" class="icon tw">
-<svg viewBox="0 0 24 24">
-<path d="M4 2L2 6v14h5v2h2l2-2h3l4-4V2H4z"/>
-</svg>
-</a>
-
+<a href="https://x.com/makaien_vtuber" target="_blank">X</a>
+<a href="https://www.youtube.com/@makaien_vtuber" target="_blank">YouTube</a>
+<a href="https://www.twitch.tv/makaien_vtuber" target="_blank">Twitch</a>
 </div>
 
 <p>作成者：Akito</p>
-<p style="font-size:12px; color:#aaa;">v1.0.0 β版</p>
 
 </div>
 
