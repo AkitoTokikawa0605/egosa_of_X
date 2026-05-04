@@ -37,6 +37,16 @@ body {
   text-align: center;
 }
 
+/* セクションタイトル（▼エゴサ検索ボタン） */
+.section-title {
+  width: 400px;
+  margin: 20px auto 5px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #ccc;
+  text-align: left;
+}
+
 /* ボックス */
 .box {
   background: rgba(100,100,100,0.7);
@@ -65,15 +75,16 @@ button:hover {
 .yellow { background: #ffd700; color: black; }
 .blue { background: #6ecbff; color: black; }
 
-/* 日付入力（修正版） */
+/* 日付入力（強化版） */
 input[type="date"] {
-  padding: 12px 16px;
-  width: 280px;
-  font-size: 16px;
+  padding: 14px 16px;
+  width: 300px;
+  font-size: 18px;
   border-radius: 12px;
   border: 1px solid #555;
   background: #111;
   color: #fff;
+  text-align: center;
 }
 
 /* フッター */
@@ -119,6 +130,8 @@ input[type="date"] {
   是非使用してみてください！
 </div>
 
+<!-- 魔灰えん -->
+<div class="section-title">▼エゴサ検索ボタン</div>
 <div class="box">
   <h2>魔灰えん</h2>
   <button class="pink" onclick="searchX('魔灰えん')">#(ハッシュタグ)</button>
@@ -126,6 +139,8 @@ input[type="date"] {
   <button class="blue" onclick="searchDate('魔灰えん')">日付検索</button>
 </div>
 
+<!-- 魔灰絵 -->
+<div class="section-title">▼エゴサ検索ボタン</div>
 <div class="box">
   <h2>魔灰絵</h2>
   <button class="pink" onclick="searchX('魔灰絵')">#(ハッシュタグ)</button>
@@ -133,6 +148,7 @@ input[type="date"] {
   <button class="blue" onclick="searchDate('魔灰絵')">日付検索</button>
 </div>
 
+<!-- 日付検索 -->
 <p>日付検索</p>
 <input type="date" id="date">
 
