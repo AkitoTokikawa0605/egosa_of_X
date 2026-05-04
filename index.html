@@ -8,7 +8,7 @@
 body {
   margin: 0;
   font-family: sans-serif;
- background: linear-gradient(to bottom right, #1a1a1a, #3a0a5c, #1a1a1a);
+  background: linear-gradient(to bottom right, #1a1a1a, #3a0a5c, #1a1a1a);
   color: white;
 }
 
@@ -20,7 +20,6 @@ body {
   margin: 0;
   color: #fff;
   text-shadow: 0 0 10px rgba(255,255,255,0.3);
-
   text-align: center;
 }
 
@@ -42,7 +41,7 @@ body {
   text-align: center;
 }
 
-/* ▼エゴサ見出し（強化版） */
+/* 見出し */
 .section-title {
   width: 100%;
   margin: 25px 0 10px;
@@ -81,16 +80,30 @@ button:hover {
 .yellow { background: #ffd700; color: black; }
 .blue { background: #6ecbff; color: black; }
 
-/* 日付入力（強化版） */
+/* 日付入力（改善版） */
 input[type="date"] {
   padding: 16px 18px;
   width: 340px;
   font-size: 22px;
   border-radius: 12px;
-  border: 1px solid #555;
-  background: #111;
-  color: #fff;
+
+  background: #ffffff;
+  color: #111;
+  border: 2px solid #6ecbff;
+  box-shadow: 0 0 10px rgba(110, 203, 255, 0.3);
+
   text-align: center;
+}
+
+input[type="date"]:focus {
+  outline: none;
+  border-color: #ff7ac3;
+  box-shadow: 0 0 12px rgba(255, 122, 195, 0.4);
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: none;
+  cursor: pointer;
 }
 
 /* フッター */
@@ -136,8 +149,8 @@ input[type="date"] {
   是非使用してみてください！
 </div>
 
-<!-- 魔灰えん -->
 <div class="section-title">▼エゴサ検索ボタン</div>
+
 <div class="box">
   <h2>魔灰えん</h2>
   <button class="pink" onclick="searchX('魔灰えん')">#(ハッシュタグ)</button>
@@ -145,7 +158,6 @@ input[type="date"] {
   <button class="blue" onclick="searchDate('魔灰えん')">日付検索</button>
 </div>
 
-<!-- 魔灰絵 -->
 <div class="box">
   <h2>魔灰絵</h2>
   <button class="pink" onclick="searchX('魔灰絵')">#(ハッシュタグ)</button>
@@ -153,7 +165,6 @@ input[type="date"] {
   <button class="blue" onclick="searchDate('魔灰絵')">日付検索</button>
 </div>
 
-<!-- 日付検索 -->
 <p style="text-align:center;">日付検索</p>
 <div style="text-align:center;">
   <input type="date" id="date">
