@@ -12,14 +12,21 @@ body {
   color: white;
 }
 
+/* メンテ画面 */
+#maintenance {
+  display: none;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  font-weight: bold;
+  background: black;
+  color: red;
+}
+
 /* ヘッダー */
 .header h1 {
   font-size: 50px;
-  font-weight: bold;
-  letter-spacing: 3px;
-  margin: 0;
-  color: #fff;
-  text-shadow: 0 0 10px rgba(255,255,255,0.3);
   text-align: center;
 }
 
@@ -30,26 +37,6 @@ body {
   align-items: center;
   gap: 30px;
   padding: 20px;
-}
-
-/* 説明 */
-.desc {
-  background: rgba(0,0,0,0.4);
-  padding: 15px;
-  border-radius: 12px;
-  max-width: 90%;
-  text-align: center;
-}
-
-/* 見出し */
-.section-title {
-  width: 100%;
-  margin: 25px 0 10px;
-  text-align: center;
-  font-size: 20px;
-  font-weight: bold;
-  color: #ddd;
-  letter-spacing: 1px;
 }
 
 /* ボックス */
@@ -63,47 +50,24 @@ body {
 
 /* ボタン */
 button {
-  margin: 5px;
+  margin-top: 10px;
   padding: 10px 15px;
   border-radius: 10px;
   border: none;
   font-weight: bold;
   cursor: pointer;
-  transition: 0.2s;
 }
 
-button:hover {
-  transform: scale(1.1);
+.pink { background: #ff7ac3; }
+.yellow { background: #ffd700; }
+.blue { background: #6ecbff; }
+
+/* ラジオ */
+.mode {
+  margin-top: 10px;
 }
-
-.pink { background: #ff7ac3; color: black; }
-.yellow { background: #ffd700; color: black; }
-.blue { background: #6ecbff; color: black; }
-
-/* 日付入力（改善版） */
-input[type="date"] {
-  padding: 16px 18px;
-  width: 340px;
-  font-size: 22px;
-  border-radius: 12px;
-
-  background: #ffffff;
-  color: #111;
-  border: 2px solid #6ecbff;
-  box-shadow: 0 0 10px rgba(110, 203, 255, 0.3);
-
-  text-align: center;
-}
-
-input[type="date"]:focus {
-  outline: none;
-  border-color: #ff7ac3;
-  box-shadow: 0 0 12px rgba(255, 122, 195, 0.4);
-}
-
-input[type="date"]::-webkit-calendar-picker-indicator {
-  filter: none;
-  cursor: pointer;
+.mode label {
+  margin: 0 10px;
 }
 
 /* フッター */
@@ -112,29 +76,18 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   padding: 20px;
   background: rgba(0,0,0,0.5);
 }
-
-/* アイコン */
-.icons {
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-  margin-bottom: 10px;
-}
-
-.icons img {
-  width: 40px;
-  filter: invert(1);
-  transition: 0.2s;
-}
-
-.icons img:hover {
-  transform: scale(1.2);
-}
 </style>
-
 </head>
 
 <body>
+
+<!-- メンテ画面 -->
+<div id="maintenance">
+  メンテナンス中です…
+</div>
+
+<!-- 本体 -->
+<div id="app">
 
 <div class="header">
   <h1>エゴサツール</h1>
@@ -142,98 +95,75 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 <div class="container">
 
-<div class="desc">
-  エゴサツールは
-  <span style="color:#ff7ac3; font-weight:bold;">魔灰えん</span>さんを推す為のツールです！<br>
-  今後色々出来るように調整していきますので<br>
-  是非使用してみてください！
-</div>
-
-<div class="section-title">▼エゴサ検索ボタン</div>
-
+<!-- ▼ 魔灰えん -->
 <div class="box">
   <h2>魔灰えん</h2>
-  <button class="pink" onclick="searchX('魔灰えん')">#(ハッシュタグ)</button>
-  <button class="yellow" onclick="searchYahoo('魔灰えん')">Y(Yahoo)</button>
-  <button class="blue" onclick="searchDate('魔灰えん')">日付検索</button>
+
+  <div class="mode">
+    <label><input type="radio" name="mode1" value="or" checked> OR検索</label>
+    <label><input type="radio" name="mode1" value="exact"> 完全一致</label>
+  </div>
+
+  <button class="pink" onclick="searchX('魔灰えん','mode1')">X検索</button>
+  <button class="yellow" onclick="searchYahoo('魔灰えん')">Yahoo</button>
 </div>
 
-<div class="box">
-  <h2>魔灰絵</h2>
-  <button class="pink" onclick="searchX('魔灰絵')">#(ハッシュタグ)</button>
-  <button class="yellow" onclick="searchYahoo('魔灰絵')">Y(Yahoo)</button>
-  <button class="blue" onclick="searchDate('魔灰絵')">日付検索</button>
-</div>
-
+<!-- ▼ 新衣装 -->
 <div class="box">
   <h2>魔灰えん新衣装お披露目会</h2>
-  <button class="pink" onclick="searchX('魔灰えん新衣装お披露目会')">#(ハッシュタグ)</button>
-  <button class="yellow" onclick="searchYahoo('魔灰えん新衣装お披露目会')">Y(Yahoo)</button>
-  <button class="blue" onclick="searchDate('魔灰えん新衣装お披露目会')">日付検索</button>
+
+  <div class="mode">
+    <label><input type="radio" name="mode2" value="or" checked> OR検索</label>
+    <label><input type="radio" name="mode2" value="exact"> 完全一致</label>
+  </div>
+
+  <button class="pink" onclick="searchX('魔灰えん新衣装お披露目会','mode2')">X検索</button>
+  <button class="yellow" onclick="searchYahoo('魔灰えん新衣装お披露目会')">Yahoo</button>
 </div>
-  
-<p style="text-align:center;">日付検索</p>
-<div style="text-align:center;">
-  <input type="date" id="date">
-</div>
+
+<!-- メンテ切替 -->
+<button onclick="toggleMaintenance()">メンテ切替</button>
 
 </div>
 
 <div class="footer">
-
-<div class="icons">
-
-<a href="https://x.com/makaien_vtuber" target="_blank">
-  <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/x.svg">
-</a>
-
-<a href="https://www.youtube.com/@makaien_vtuber" target="_blank">
-  <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg">
-</a>
-
-<a href="https://www.twitch.tv/makaien_vtuber" target="_blank">
-  <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/twitch.svg">
-</a>
-
+  作成者：Akito_Tokikawa
 </div>
-
-<p>
-  作成者：
-  <a href="https://x.com/Akito_tokikawa" target="_blank" style="color:#6ecbff; text-decoration:none; font-weight:bold;">
-    Akito_Tokikawa
-  </a>
-</p>
-<p style="font-size:12px; color:#aaa;">v1.0.1 β版</p>
 
 </div>
 
 <script>
-function searchX(word){
-  window.open(`https://x.com/search?q=%23${encodeURIComponent(word)}&f=live`)
+// ===== メンテ切替 =====
+let maintenanceMode = false;
+
+function toggleMaintenance(){
+  maintenanceMode = !maintenanceMode;
+
+  document.getElementById("maintenance").style.display =
+    maintenanceMode ? "flex" : "none";
+
+  document.getElementById("app").style.display =
+    maintenanceMode ? "none" : "block";
 }
 
-function searchYahoo(word){
-  window.open(`https://search.yahoo.co.jp/realtime/search?p=${encodeURIComponent(word)}`)
-}
+// ===== X検索 =====
+function searchX(word, groupName){
+  const mode = document.querySelector(`input[name="${groupName}"]:checked`).value;
 
-function searchDate(word){
-  const date = document.getElementById("date").value
-  if(!date){
-    alert("日付選んで！");
-    return;
+  let query;
+
+  if(mode === "or"){
+    query = `${word} OR #${word}`;
+  } else {
+    query = `"${word}" OR "#${word}"`;
   }
 
-  const d = new Date(date)
-  d.setDate(d.getDate() + 1)
+  window.open(`https://x.com/search?q=${encodeURIComponent(query)}&f=live`);
+}
 
-  const yyyy = d.getFullYear()
-  const mm = String(d.getMonth() + 1).padStart(2,'0')
-  const dd = String(d.getDate()).padStart(2,'0')
-
-  const until = `${yyyy}-${mm}-${dd}`
-  const query = `${word} since:${date} until:${until}`
-
-  window.open(`https://x.com/search?q=${encodeURIComponent(query)}&f=live`)
+// ===== Yahoo =====
+function searchYahoo(word){
+  window.open(`https://search.yahoo.co.jp/realtime/search?p=${encodeURIComponent(word)}`);
 }
 </script>
 
