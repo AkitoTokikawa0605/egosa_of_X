@@ -197,7 +197,7 @@ let maintenanceMode =  true;
 
 // 表示制御
 function applyMaintenance(){
-  if(maintenanceMode){
+ if(maintenanceMode && !isDev){
     document.getElementById("maintenance").style.display = "flex";
     document.getElementById("app").style.display = "none";
   }
