@@ -175,7 +175,7 @@ const params = new URLSearchParams(location.search);
 const isDev = params.get("dev") === "1";
 
 // ===== メンテ =====
-let maintenanceMode = false;
+let maintenanceMode =  true;
 
 function applyMaintenance(){
   if(maintenanceMode && !isDev){
