@@ -60,7 +60,6 @@ button {
 
 .pink { background: #ff7ac3; }
 .yellow { background: #ffd700; }
-.blue { background: #6ecbff; }
 
 /* ラジオ */
 .mode {
@@ -121,8 +120,8 @@ button {
   <button class="yellow" onclick="searchYahoo('魔灰えん新衣装お披露目会')">Yahoo</button>
 </div>
 
-<!-- メンテ切替 -->
-<button onclick="toggleMaintenance()">メンテ切替</button>
+<!-- 管理者用ボタン -->
+<button id="adminBtn" onclick="toggleMaintenance()">メンテ切替</button>
 
 </div>
 
@@ -133,17 +132,35 @@ button {
 </div>
 
 <script>
-// ===== メンテ切替 =====
+// ===== 開発者判定（?dev=1）=====
+const params = new URLSearchParams(location.search);
+const isDev = params.get("dev") === "1";
+
+// ===== メンテ状態（ここを変えるだけ）=====
 let maintenanceMode = false;
 
+// ===== 初期表示 =====
+function applyMaintenance(){
+  if(maintenanceMode && !isDev){
+    document.getElementById("maintenance").style.display = "flex";
+    document.getElementById("app").style.display = "none";
+  } else {
+    document.getElementById("maintenance").style.display = "none";
+    document.getElementById("app").style.display = "block";
+  }
+}
+
+// ===== メンテ切替（開発者のみ）=====
 function toggleMaintenance(){
   maintenanceMode = !maintenanceMode;
+  applyMaintenance();
+}
 
-  document.getElementById("maintenance").style.display =
-    maintenanceMode ? "flex" : "none";
-
-  document.getElementById("app").style.display =
-    maintenanceMode ? "none" : "block";
+// ===== 管理ボタン非表示 =====
+if(!isDev){
+  document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("adminBtn").style.display = "none";
+  });
 }
 
 // ===== X検索 =====
@@ -165,6 +182,9 @@ function searchX(word, groupName){
 function searchYahoo(word){
   window.open(`https://search.yahoo.co.jp/realtime/search?p=${encodeURIComponent(word)}`);
 }
+
+// ===== 初期実行 =====
+window.onload = applyMaintenance;
 </script>
 
 </body>
