@@ -12,7 +12,7 @@ body {
   color: white;
 }
 
-/* メンテ画面 */
+/* メンテ */
 #maintenance {
   display: none;
   height: 100vh;
@@ -44,7 +44,6 @@ body {
   background: rgba(0,0,0,0.4);
   padding: 15px;
   border-radius: 12px;
-  max-width: 90%;
   text-align: center;
 }
 
@@ -72,9 +71,6 @@ button {
 .blue { background: #6ecbff; }
 
 /* ラジオ */
-.mode {
-  margin-top: 10px;
-}
 .mode label {
   margin: 0 10px;
 }
@@ -83,7 +79,6 @@ button {
 input[type="date"] {
   padding: 10px;
   border-radius: 10px;
-  font-size: 16px;
 }
 
 /* アイコン */
@@ -91,7 +86,7 @@ input[type="date"] {
   display: flex;
   gap: 20px;
   justify-content: center;
-  margin-bottom: 10px;
+  margin: 10px 0;
 }
 
 .icons img {
@@ -115,10 +110,8 @@ input[type="date"] {
 
 <body>
 
-<!-- メンテ画面 -->
 <div id="maintenance">メンテナンス中です…</div>
 
-<!-- 本体 -->
 <div id="app">
 
 <div class="header">
@@ -128,19 +121,16 @@ input[type="date"] {
 <div class="container">
 
 <div class="desc">
-  エゴサツールは <span style="color:#ff7ac3;">魔灰えん</span> さんを推す為のツールです！<br>
-  今後もアップデート予定！
+  魔灰えんさんを応援するエゴサツール！
 </div>
 
 <!-- 魔灰えん -->
 <div class="box">
   <h2>魔灰えん</h2>
-
   <div class="mode">
     <label><input type="radio" name="mode1" value="or" checked> OR検索</label>
     <label><input type="radio" name="mode1" value="exact"> 完全一致</label>
   </div>
-
   <button class="pink" onclick="searchX('魔灰えん','mode1')">X検索</button>
   <button class="yellow" onclick="searchYahoo('魔灰えん')">Yahoo</button>
   <button class="blue" onclick="searchDate('魔灰えん')">日付検索</button>
@@ -149,12 +139,10 @@ input[type="date"] {
 <!-- 魔灰絵 -->
 <div class="box">
   <h2>魔灰絵</h2>
-
   <div class="mode">
     <label><input type="radio" name="mode2" value="or" checked> OR検索</label>
     <label><input type="radio" name="mode2" value="exact"> 完全一致</label>
   </div>
-
   <button class="pink" onclick="searchX('魔灰絵','mode2')">X検索</button>
   <button class="yellow" onclick="searchYahoo('魔灰絵')">Yahoo</button>
   <button class="blue" onclick="searchDate('魔灰絵')">日付検索</button>
@@ -163,12 +151,10 @@ input[type="date"] {
 <!-- 新衣装 -->
 <div class="box">
   <h2>魔灰えん新衣装お披露目会</h2>
-
   <div class="mode">
     <label><input type="radio" name="mode3" value="or" checked> OR検索</label>
     <label><input type="radio" name="mode3" value="exact"> 完全一致</label>
   </div>
-
   <button class="pink" onclick="searchX('魔灰えん新衣装お披露目会','mode3')">X検索</button>
   <button class="yellow" onclick="searchYahoo('魔灰えん新衣装お披露目会')">Yahoo</button>
   <button class="blue" onclick="searchDate('魔灰えん新衣装お披露目会')">日付検索</button>
@@ -177,76 +163,50 @@ input[type="date"] {
 <p>日付検索</p>
 <input type="date" id="date">
 
-<!-- 管理者用 -->
-<button id="adminBtn" onclick="toggleMaintenance()">メンテ切替</button>
-
 </div>
 
 <!-- フッター -->
 <div class="footer">
 
   <div class="icons">
-    <a href="https://x.com/makaien_vtuber" target="_blank" title="X">
+    <a href="https://x.com/makaien_vtuber" target="_blank">
       <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/x.svg">
     </a>
-    <a href="https://www.youtube.com/@makaien_vtuber" target="_blank" title="YouTube">
+    <a href="https://www.youtube.com/@makaien_vtuber" target="_blank">
       <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg">
     </a>
-    <a href="https://www.twitch.tv/makaien_vtuber" target="_blank" title="Twitch">
+    <a href="https://www.twitch.tv/makaien_vtuber" target="_blank">
       <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/twitch.svg">
     </a>
   </div>
 
   <p>
     作成者：
-    <a href="https://x.com/Akito_tokikawa" target="_blank" style="color:#6ecbff; text-decoration:none; font-weight:bold;">
+    <a href="https://x.com/Akito_tokikawa" target="_blank" style="color:#6ecbff;">
       Akito_Tokikawa
     </a>
   </p>
-
-  <p style="font-size:12px; color:#aaa;">v1.1.0</p>
 
 </div>
 
 </div>
 
 <script>
-// 開発者判定
-const params = new URLSearchParams(location.search);
-const isDev = params.get("dev") === "1";
-
-// メンテ状態
+// メンテ状態（ここだけ変更）
 let maintenanceMode =  true;
 
-// 初期表示
+// 表示制御
 function applyMaintenance(){
-  if(maintenanceMode && !isDev){
+  if(maintenanceMode){
     document.getElementById("maintenance").style.display = "flex";
     document.getElementById("app").style.display = "none";
-  } else {
-    document.getElementById("maintenance").style.display = "none";
-    document.getElementById("app").style.display = "block";
   }
-}
-
-// メンテ切替
-function toggleMaintenance(){
-  maintenanceMode = !maintenanceMode;
-  applyMaintenance();
-}
-
-// 管理ボタン隠す
-if(!isDev){
-  document.addEventListener("DOMContentLoaded", () => {
-    document.getElementById("adminBtn").style.display = "none";
-  });
 }
 
 // X検索
 function searchX(word, group){
   const mode = document.querySelector(`input[name="${group}"]:checked`).value;
-
-  let query = mode === "or"
+  const query = mode === "or"
     ? `${word} OR #${word}`
     : `"${word}" OR "#${word}"`;
 
@@ -261,19 +221,12 @@ function searchYahoo(word){
 // 日付検索
 function searchDate(word){
   const date = document.getElementById("date").value;
-  if(!date){
-    alert("日付選んで！");
-    return;
-  }
+  if(!date){ alert("日付選んで！"); return; }
 
   const d = new Date(date);
   d.setDate(d.getDate() + 1);
 
-  const yyyy = d.getFullYear();
-  const mm = String(d.getMonth() + 1).padStart(2,'0');
-  const dd = String(d.getDate()).padStart(2,'0');
-
-  const until = `${yyyy}-${mm}-${dd}`;
+  const until = d.toISOString().split("T")[0];
   const query = `${word} since:${date} until:${until}`;
 
   window.open(`https://x.com/search?q=${encodeURIComponent(query)}&f=live`);
