@@ -8,29 +8,39 @@
 body {
   margin: 0;
   font-family: sans-serif;
-  background: linear-gradient(to bottom right, #1a1a1a, #3a0a5c, #1a1a1a);
+
+  /* 背景画像 */
+  background-image: url("images/gazou6.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+
   color: white;
+  position: relative;
+  z-index: 0;
 }
 
-/* メンテ */
-#maintenance {
-  display: none;
-  height: 100vh;
-  justify-content: center;
-  align-items: center;
-  font-size: 30px;
-  font-weight: bold;
-  background: black;
-  color: red;
+/* 背景を暗く＋ぼかし */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(3px);
+
+  z-index: -1;
 }
 
 /* ヘッダー */
 .header h1 {
   font-size: 50px;
   text-align: center;
+  margin-top: 30px;
+  text-shadow: 0 0 15px rgba(255,255,255,0.3);
 }
 
-/* コンテンツ */
+/* コンテナ */
 .container {
   display: flex;
   flex-direction: column;
@@ -41,38 +51,61 @@ body {
 
 /* 説明 */
 .desc {
-  background: rgba(0,0,0,0.4);
+  background: rgba(0,0,0,0.45);
   padding: 15px;
   border-radius: 12px;
   text-align: center;
+  max-width: 500px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.4);
 }
 
 /* タイトル */
 .section-title {
   font-size: 28px;
   font-weight: bold;
-  color: #fff;
-  text-align: center;
-  margin: 5px 0 5px;
-  letter-spacing: 2px;
-  text-shadow: 0 0 10px rgba(255,255,255,0.3);
+  margin: 10px 0;
+}
+
+/* 説明ボタン */
+.guide-btn {
+  background: linear-gradient(45deg,#b56cff,#ff7ac3);
+  color: white;
+
+  padding: 12px 25px;
+  border: none;
+  border-radius: 12px;
+
+  font-size: 16px;
+  font-weight: bold;
+
+  cursor: pointer;
+
+  box-shadow: 0 0 15px rgba(255,255,255,0.2);
+
+  transition: 0.2s;
+}
+
+.guide-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(255,255,255,0.4);
 }
 
 .date-title {
   font-size: 24px;
   font-weight: bold;
-  text-align: center;
-  margin-top: 25px;
-  color: #ddd;
 }
 
 /* ボックス */
 .box {
-  background: rgba(100,100,100,0.7);
+  background: rgba(80,80,80,0.75);
   padding: 20px;
   border-radius: 15px;
   text-align: center;
-  width: 400px;
+  width: 100%;
+  max-width: 400px;
+
+  box-shadow: 0 0 20px rgba(0,0,0,0.4);
+  backdrop-filter: blur(4px);
 }
 
 /* ボタン */
@@ -90,11 +123,22 @@ button:hover {
   transform: scale(1.05);
 }
 
-.pink { background: #ff7ac3; }
-.yellow { background: #ffd700; }
-.blue { background: #6ecbff; }
+.pink {
+  background: #ff7ac3;
+  color: black;
+}
 
-/* ラジオ */
+.yellow {
+  background: #ffd700;
+  color: black;
+}
+
+.blue {
+  background: #6ecbff;
+  color: black;
+}
+
+/* モード */
 .mode label {
   margin: 0 10px;
 }
@@ -104,6 +148,15 @@ input[type="date"] {
   padding: 10px;
   border-radius: 10px;
   border: none;
+
+  width: 240px;
+  font-size: 16px;
+
+  text-align: center;
+}
+
+input[type="date"]::-webkit-datetime-edit {
+  text-align: center;
 }
 
 /* アイコン */
@@ -111,7 +164,6 @@ input[type="date"] {
   display: flex;
   gap: 20px;
   justify-content: center;
-  margin: 10px 0;
 }
 
 .icons img {
@@ -121,7 +173,7 @@ input[type="date"] {
 }
 
 .icons img:hover {
-  transform: scale(1.2);
+  transform: scale(1.15);
 }
 
 /* フッター */
@@ -129,19 +181,82 @@ input[type="date"] {
   text-align: center;
   padding: 20px;
   background: rgba(0,0,0,0.5);
+  margin-top: 30px;
+}
+
+/* バージョン */
+.version {
+  font-size: 12px;
+  opacity: 0.6;
+  margin-top: 10px;
+}
+
+/* メンテナンス */
+#maintenance{
+  position: fixed;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      rgba(0,0,0,0.75),
+      rgba(0,0,0,0.75)
+    ),
+    url("images/gazou6.jpg");
+
+  background-size: cover;
+  background-position: center;
+
+  display: none;
+
+  justify-content: center;
+  align-items: center;
+
+  z-index: 9999;
+}
+
+.maintenance-box{
+  background: rgba(0,0,0,0.6);
+
+  padding: 40px;
+
+  border-radius: 20px;
+
+  text-align: center;
+
+  backdrop-filter: blur(5px);
+
+  box-shadow: 0 0 30px rgba(255,255,255,0.2);
+}
+
+.maintenance-box h1{
+  color: #ff7ac3;
+  font-size: 42px;
+}
+
+.maintenance-box p{
+  font-size: 18px;
+  line-height: 1.8;
 }
 </style>
 </head>
 
 <body>
 
-<!-- メンテ画面 -->
+<!-- メンテナンス画面 -->
 <div id="maintenance">
-  メンテナンス中です…
-</div>
 
-<!-- アプリ本体 -->
-<div id="app">
+  <div class="maintenance-box">
+
+    <h1>現在メンテナンス中</h1>
+
+    <p>
+      現在アップデート作業中です。<br>
+      復旧までしばらくお待ちください。
+    </p>
+
+  </div>
+
+</div>
 
 <div class="header">
   <h1>魔界検索ツール</h1>
@@ -151,93 +266,213 @@ input[type="date"] {
 
   <div class="desc">
     魔界検索ツールは
-    <span class="highlight">魔灰えん</span>さんを推す為のツールです！
-    <p>今後いろいろな機能を追加予定なので、ぜひ使用してみてください！</p>
+    <span style="color:#ff7ac3; font-weight:bold;">
+      魔灰えん
+    </span>
+    さんを推す為のツールです！
+
+    <p>ぜひ使ってみてください！</p>
   </div>
 
-  <div class="section-title">▼検索ボタン</div>
+  <div class="section-title">
+    ▼取扱説明書
+  </div>
 
-  <!-- 魔灰えん -->
-  <div class="box">
-    <h2>魔灰えん</h2>
+  <button class="guide-btn"
+          onclick="location.href='setumei.html'">
+    使い方・説明
+  </button>
 
-    <div class="mode">
-      <label><input type="radio" name="mode1" value="or" checked> OR検索</label>
-      <label><input type="radio" name="mode1" value="exact"> 完全一致</label>
-    </div>
+<div class="section-title">
+  ▼検索ボタン
+</div>
 
-    <button class="pink" onclick="searchX('魔灰えん','mode1')">X検索</button>
-    <button class="yellow" onclick="searchYahoo('魔灰えん')">Yahoo</button>
-    <button class="blue" onclick="searchDate('魔灰えん')">日付検索</button>
+<!-- 日付検索 -->
+<p class="date-title">
+  日付検索
+</p>
+
+<input type="date" id="date">
+
+<!-- 魔灰えん -->
+<div class="box">
+
+  <h2>魔灰えん</h2>
+
+  <div class="mode">
+    <label>
+      <input type="radio"
+             name="mode1"
+             value="or"
+             checked>
+      OR
+    </label>
+
+    <label>
+      <input type="radio"
+             name="mode1"
+             value="exact">
+      完全一致
+    </label>
+  </div>
+
+  <button class="pink"
+          onclick="searchX('魔灰えん','mode1')">
+    X検索
+  </button>
+
+  <button class="yellow"
+          onclick="searchYahoo('魔灰えん')">
+    Yahoo
+  </button>
+
+  <button class="blue"
+          onclick="searchDate('魔灰えん')">
+    日付
+  </button>
+
+  <button class="pink"
+          onclick="postX('魔灰えん')">
+    ポスト
+  </button>
+
   </div>
 
   <!-- 魔灰絵 -->
   <div class="box">
+
     <h2>魔灰絵</h2>
 
     <div class="mode">
-      <label><input type="radio" name="mode2" value="or" checked> OR検索</label>
-      <label><input type="radio" name="mode2" value="exact"> 完全一致</label>
+      <label>
+        <input type="radio"
+               name="mode2"
+               value="or"
+               checked>
+        OR
+      </label>
+
+      <label>
+        <input type="radio"
+               name="mode2"
+               value="exact">
+        完全一致
+      </label>
     </div>
 
-    <button class="pink" onclick="searchX('魔灰絵','mode2')">X検索</button>
-    <button class="yellow" onclick="searchYahoo('魔灰絵')">Yahoo</button>
-    <button class="blue" onclick="searchDate('魔灰絵')">日付検索</button>
+    <button class="pink"
+            onclick="searchX('魔灰絵','mode2')">
+      X検索
+    </button>
+
+    <button class="yellow"
+            onclick="searchYahoo('魔灰絵')">
+      Yahoo
+    </button>
+
+    <button class="blue"
+            onclick="searchDate('魔灰絵')">
+      日付
+    </button>
+
+    <button class="pink"
+            onclick="postX('魔灰絵')">
+      ポスト
+    </button>
+
   </div>
 
   <!-- 新衣装 -->
   <div class="box">
+
     <h2>魔灰えん新衣装お披露目会</h2>
 
     <div class="mode">
-      <label><input type="radio" name="mode3" value="or" checked> OR検索</label>
-      <label><input type="radio" name="mode3" value="exact"> 完全一致</label>
+      <label>
+        <input type="radio"
+               name="mode3"
+               value="or"
+               checked>
+        OR
+      </label>
+
+      <label>
+        <input type="radio"
+               name="mode3"
+               value="exact">
+        完全一致
+      </label>
     </div>
 
-    <button class="pink" onclick="searchX('魔灰えん新衣装お披露目会','mode3')">X検索</button>
-    <button class="yellow" onclick="searchYahoo('魔灰えん新衣装お披露目会')">Yahoo</button>
-    <button class="blue" onclick="searchDate('魔灰えん新衣装お披露目会')">日付検索</button>
+    <button class="pink"
+            onclick="searchX('魔灰えん新衣装お披露目会','mode3')">
+      X検索
+    </button>
+
+    <button class="yellow"
+            onclick="searchYahoo('魔灰えん新衣装お披露目会')">
+      Yahoo
+    </button>
+
+    <button class="blue"
+            onclick="searchDate('魔灰えん新衣装お披露目会')">
+      日付
+    </button>
+
+    <button class="pink"
+            onclick="postX('魔灰えん新衣装お披露目会')">
+      ポスト
+    </button>
+
   </div>
 
-  <!-- 日付 -->
-  <p class="date-title">日付検索</p>
+  <p class="date-title">
+    日付検索
+  </p>
+
   <input type="date" id="date">
 
 </div>
 
-<!-- フッター -->
 <div class="footer">
 
   <div class="icons">
-    <a href="https://x.com/makaien_vtuber" target="_blank">
+
+    <a href="https://x.com/makaien_vtuber"
+       target="_blank">
       <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/x.svg">
     </a>
 
-    <a href="https://www.youtube.com/@makaien_vtuber" target="_blank">
+    <a href="https://www.youtube.com/@makaien_vtuber"
+       target="_blank">
       <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg">
     </a>
 
-    <a href="https://www.twitch.tv/makaien_vtuber" target="_blank">
+    <a href="https://www.twitch.tv/makaien_vtuber"
+       target="_blank">
       <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/twitch.svg">
     </a>
+
   </div>
 
   <p>
     作成者：
-    <a href="https://x.com/Akito_tokikawa" target="_blank" style="color:#6ecbff;">
+
+    <a href="https://x.com/Akito_tokikawa"
+       target="_blank"
+       style="color:#6ecbff;">
       Akito_Tokikawa
     </a>
   </p>
 
-  <p style="font-size:12px; color:#aaa;">
-    v1.0.1 β版
-  </p>
-
-</div>
+  <div class="version">
+    ver 1.1.0 β
+  </div>
 
 </div>
 
 <script>
+
 // =======================
 // メンテON/OFF
 // true = メンテ表示
@@ -245,21 +480,41 @@ input[type="date"] {
 // =======================
 let maintenanceMode = true;
 
+// =======================
+// ?dev=1 で貫通
+// =======================
+const urlParams =
+  new URLSearchParams(location.search);
+
+const isDev =
+  urlParams.get("dev") === "1";
+
+// =======================
 // メンテ制御
+// =======================
 function applyMaintenance() {
 
-  if (maintenanceMode) {
-    document.getElementById("maintenance").style.display = "flex";
-    document.getElementById("app").style.display = "none";
-  }
+  if (maintenanceMode && !isDev) {
 
+    document.getElementById(
+      "maintenance"
+    ).style.display = "flex";
+
+    document.body.style.overflow = "hidden";
+  }
 }
 
+applyMaintenance();
+
+// =======================
 // X検索
-function searchX(word, group) {
+// =======================
+function searchX(word, group){
 
   const mode =
-    document.querySelector(`input[name="${group}"]:checked`).value;
+    document.querySelector(
+      `input[name="${group}"]:checked`
+    ).value;
 
   const query =
     mode === "or"
@@ -269,24 +524,27 @@ function searchX(word, group) {
   window.open(
     `https://x.com/search?q=${encodeURIComponent(query)}&f=live`
   );
-
 }
 
+// =======================
 // Yahoo検索
-function searchYahoo(word) {
+// =======================
+function searchYahoo(word){
 
   window.open(
     `https://search.yahoo.co.jp/realtime/search?p=${encodeURIComponent(word)}`
   );
-
 }
 
+// =======================
 // 日付検索
-function searchDate(word) {
+// =======================
+function searchDate(word){
 
-  const date = document.getElementById("date").value;
+  const date =
+    document.getElementById("date").value;
 
-  if (!date) {
+  if(!date){
     alert("日付選んで！");
     return;
   }
@@ -295,7 +553,8 @@ function searchDate(word) {
 
   d.setDate(d.getDate() + 1);
 
-  const until = d.toISOString().split("T")[0];
+  const until =
+    d.toISOString().split("T")[0];
 
   const query =
     `${word} since:${date} until:${until}`;
@@ -303,11 +562,21 @@ function searchDate(word) {
   window.open(
     `https://x.com/search?q=${encodeURIComponent(query)}&f=live`
   );
-
 }
 
-// 起動時
-window.onload = applyMaintenance;
+// =======================
+// ポスト
+// =======================
+function postX(word){
+
+  const text = `#${word}`;
+
+  const url =
+    `https://x.com/intent/tweet?text=${encodeURIComponent(text)}`;
+
+  window.open(url, "_blank");
+}
+
 </script>
 
 </body>
