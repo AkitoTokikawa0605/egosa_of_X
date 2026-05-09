@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>説明書</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: sans-serif;
+  background: url("images/gazou6.jpg") no-repeat center center fixed;
+  background-size: cover;
+  color: white;
+  text-align: center;
+}
+
+/* セクション */
+.section {
+  margin-bottom: 80px;
+}
+
+/* 画像共通 */
+.setumei-img {
+  display: block;
+  margin: 20px auto;
+  width: 90%;
+  max-width: 600px;
+  border-radius: 10px;
+}
+
+/* gazou7専用（小さくする） */
+.small-img {
+  max-width: 50px;
+  width: 10%;
+}
+
+/* 空白 */
+.spacer {
+  height: 60px;
+}
+
+/* ボタン */
+button {
+  display: block;
+  margin: 30px auto;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>使い方</h1>
+
+<!-- ① -->
+<div class="section">
+  <p>
+    ① このボタンを押せばXで検索が可能になります<br>
+    「OR」か「完全一致」のどちらかを選択して検索も出来ます。
+  </p>
+  <img src="images/gazou1.png" class="setumei-img">
+</div>
+
+<!-- ② -->
+<div class="section">
+  <p>
+    ② このボタンを押せば「Yahoo!リアルタイム」で検索が可能になります<br>
+    「OR」か「完全一致」のどちらかを選択して検索も出来ます。
+  </p>
+  <img src="images/gazou2.png" class="setumei-img">
+</div>
+
+<!-- ③ -->
+<div class="section">
+  <p>
+    ③ 日付（ピンクの手）の場所に〇〇年〇〇月〇〇日と記載して<br>
+    日付を押すと指定した日付のポストを検索が出来ます。
+  </p>
+  <img src="images/gazou3.png" class="setumei-img">
+</div>
+
+<!-- ④ -->
+<div class="section">
+  <p>
+    ④ 「ポスト」をクリックするとXが開き<br>
+    「ハッシュタグ」のみの新規ポストになります。
+  </p>
+  <img src="images/gazou4.png" class="setumei-img">
+</div>
+
+<!-- 空白 -->
+<div class="spacer"></div>
+
+<!-- gazou7（小さく表示） -->
+<img src="images/gazou7.png" class="setumei-img small-img">
+
+<div class="spacer"></div>
+
+<!-- ⑤ -->
+<div class="section">
+  <img src="images/gazou5.png" class="setumei-img">
+</div>
+
+<!-- 戻るボタン -->
+<button onclick="history.back()">← 戻る</button>
+
+</body>
+</html>
