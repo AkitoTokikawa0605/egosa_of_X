@@ -1,574 +1,373 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<title>魔界検索ツール</title>
+  <meta charset="UTF-8">
+  <title>魔界検索ツール</title>
+  
+  <link rel="icon" href="images/icon_2.png">
+  <link rel="apple-touch-icon" href="images/icon_2.png">
+  <meta name="theme-color" content="#6a0dad">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <style>
+    * { box-sizing: border-box; }
 
-<style>
-body {
-  margin: 0;
-  font-family: sans-serif;
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background-image: url("images/gazou6.jpg");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: white;
+      position: relative;
+      z-index: 0;
+    }
 
-  /* 背景画像 */
-  background-image: url("images/gazou6.jpg");
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+    /* 背景の透過レイヤー */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      backdrop-filter: blur(3px);
+      z-index: -1;
+    }
 
-  color: white;
-  position: relative;
-  z-index: 0;
-}
+    /* ヘッダーロゴ */
+    .header {
+      text-align: center;
+      margin-top: 30px;
+      margin-bottom: 10px;
+      padding: 10px;
+    }
 
-/* 背景を暗く＋ぼかし */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
+    .header-logo {
+      max-width: 400px;
+      width: 90%;
+      height: auto;
+      filter: drop-shadow(0 0 10px rgba(106, 13, 173, 0.7));
+    }
 
-  background: rgba(0,0,0,0.45);
-  backdrop-filter: blur(3px);
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 25px;
+      padding: 20px;
+    }
 
-  z-index: -1;
-}
+    .desc {
+      background: rgba(0,0,0,0.45);
+      padding: 15px;
+      border-radius: 12px;
+      text-align: center;
+      max-width: 500px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.4);
+    }
 
-/* ヘッダー */
-.header h1 {
-  font-size: 50px;
-  text-align: center;
-  margin-top: 30px;
-  text-shadow: 0 0 15px rgba(255,255,255,0.3);
-}
+    .section-title {
+      font-size: 26px;
+      font-weight: bold;
+      margin: 10px 0;
+    }
 
-/* コンテナ */
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 30px;
-  padding: 20px;
-}
+    /* ボタン共通スタイル */
+    .btn-common {
+      color: white;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 0 15px rgba(255,255,255,0.2);
+      transition: 0.2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-common:hover { transform: scale(1.05); }
 
-/* 説明 */
-.desc {
-  background: rgba(0,0,0,0.45);
-  padding: 15px;
-  border-radius: 12px;
-  text-align: center;
-  max-width: 500px;
-  box-shadow: 0 0 15px rgba(0,0,0,0.4);
-}
+    .reload-inline-btn { background: linear-gradient(45deg, #6a0dad, #b56cff); }
+    .guide-btn { background: linear-gradient(45deg,#b56cff,#ff7ac3); }
 
-/* タイトル */
-.section-title {
-  font-size: 28px;
-  font-weight: bold;
-  margin: 10px 0;
-}
+    /* 検索ボックス */
+    .box {
+      background: rgba(80,80,80,0.75);
+      padding: 20px;
+      border-radius: 15px;
+      text-align: center;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.4);
+      backdrop-filter: blur(4px);
+    }
 
-/* 説明ボタン */
-.guide-btn {
-  background: linear-gradient(45deg,#b56cff,#ff7ac3);
-  color: white;
+    .box h2 { margin-top: 0; font-size: 20px; }
 
-  padding: 12px 25px;
-  border: none;
-  border-radius: 12px;
+    .box button {
+      margin: 5px;
+      padding: 10px 15px;
+      border-radius: 10px;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .box button:hover { transform: scale(1.05); }
 
-  font-size: 16px;
-  font-weight: bold;
+    .pink { background: #ff7ac3; color: black; }
+    .yellow { background: #ffd700; color: black; }
+    .blue { background: #6ecbff; color: black; }
 
-  cursor: pointer;
+    .mode {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 15px;
+    }
+    .mode label { cursor: pointer; display: flex; align-items: center; gap: 5px; }
 
-  box-shadow: 0 0 15px rgba(255,255,255,0.2);
+    input[type="date"] {
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      width: 240px;
+      font-size: 16px;
+      text-align: center;
+    }
 
-  transition: 0.2s;
-}
+    /* スケジュールエリア */
+    .calendar-box {
+      background: rgba(55,55,55,0.88);
+      width: 100%;
+      max-width: 600px;
+      padding: 10px;
+      border-radius: 15px;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(140,0,255,0.2);
+    }
 
-.guide-btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 20px rgba(255,255,255,0.4);
-}
+    .calendar-iframe {
+      border: 0;
+      width: 100%;
+      max-width: 600px;
+      height: 250px;
+      border-radius: 15px;
+      background: white;
+    }
 
-.date-title {
-  font-size: 24px;
-  font-weight: bold;
-}
+    /* フッター */
+    .footer {
+      text-align: center;
+      padding: 20px;
+      background: rgba(0,0,0,0.5);
+      margin-top: 30px;
+    }
 
-/* ボックス */
-.box {
-  background: rgba(80,80,80,0.75);
-  padding: 20px;
-  border-radius: 15px;
-  text-align: center;
-  width: 100%;
-  max-width: 400px;
+    .icons {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      margin-bottom: 15px;
+    }
 
-  box-shadow: 0 0 20px rgba(0,0,0,0.4);
-  backdrop-filter: blur(4px);
-}
+    .icons img {
+      width: 35px;
+      filter: invert(1);
+      transition: 0.2s;
+    }
+    .icons img:hover { transform: scale(1.2); }
 
-/* ボタン */
-button {
-  margin: 5px;
-  padding: 10px 15px;
-  border-radius: 10px;
-  border: none;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.2s;
-}
+    .footer a {
+      color: #6ecbff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .footer a:hover { text-decoration: underline; }
 
-button:hover {
-  transform: scale(1.05);
-}
+    /* メンテナンス画面 */
+    #maintenance {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url("images/gazou6.jpg");
+      background-size: cover;
+      background-position: center;
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
 
-.pink {
-  background: #ff7ac3;
-  color: black;
-}
+    .maintenance-box {
+      background: rgba(0,0,0,0.6);
+      padding: 40px;
+      border-radius: 20px;
+      text-align: center;
+      backdrop-filter: blur(5px);
+      box-shadow: 0 0 30px rgba(0,0,0,0.5);
+    }
 
-.yellow {
-  background: #ffd700;
-  color: black;
-}
+    .maintenance-logo {
+      width: 250px;
+      max-width: 80%;
+      height: auto;
+      margin-bottom: 20px;
+      filter: drop-shadow(0 0 10px rgba(255, 122, 195, 0.7));
+      animation: float 2s ease-in-out infinite;
+    }
 
-.blue {
-  background: #6ecbff;
-  color: black;
-}
-
-/* モード */
-.mode label {
-  margin: 0 10px;
-}
-
-/* 日付 */
-input[type="date"] {
-  padding: 10px;
-  border-radius: 10px;
-  border: none;
-
-  width: 240px;
-  font-size: 16px;
-
-  text-align: center;
-}
-
-input[type="date"]::-webkit-datetime-edit {
-  text-align: center;
-}
-
-/* アイコン */
-.icons {
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-}
-
-.icons img {
-  width: 40px;
-  filter: invert(1);
-  transition: 0.2s;
-}
-
-.icons img:hover {
-  transform: scale(1.15);
-}
-
-/* フッター */
-.footer {
-  text-align: center;
-  padding: 20px;
-  background: rgba(0,0,0,0.5);
-  margin-top: 30px;
-}
-
-/* バージョン */
-.version {
-  font-size: 12px;
-  opacity: 0.6;
-  margin-top: 10px;
-}
-
-/* メンテナンス */
-#maintenance{
-  position: fixed;
-  inset: 0;
-
-  background:
-    linear-gradient(
-      rgba(0,0,0,0.75),
-      rgba(0,0,0,0.75)
-    ),
-    url("images/gazou6.jpg");
-
-  background-size: cover;
-  background-position: center;
-
-  display: none;
-
-  justify-content: center;
-  align-items: center;
-
-  z-index: 9999;
-}
-
-.maintenance-box{
-  background: rgba(0,0,0,0.6);
-
-  padding: 40px;
-
-  border-radius: 20px;
-
-  text-align: center;
-
-  backdrop-filter: blur(5px);
-
-  box-shadow: 0 0 30px rgba(255,255,255,0.2);
-}
-
-.maintenance-box h1{
-  color: #ff7ac3;
-  font-size: 42px;
-}
-
-.maintenance-box p{
-  font-size: 18px;
-  line-height: 1.8;
-}
-</style>
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+  </style>
 </head>
 
 <body>
 
-<!-- メンテナンス画面 -->
 <div id="maintenance">
-
   <div class="maintenance-box">
-
-    <h1>現在メンテナンス中</h1>
-
-    <p>
-      現在アップデート作業中です。<br>
-      復旧までしばらくお待ちください。
-    </p>
-
+    <img src="images/ment.png" class="maintenance-logo" alt="Logo">
+    <h1 style="color: #ff7ac3;">現在メンテナンス中</h1>
+    <p>アップデート作業中です。<br>復旧までしばらくお待ちください。</p>
+    <button class="btn-common reload-inline-btn" onclick="location.reload()" style="margin-top: 20px;">
+      ↻ 復旧を確認する
+    </button>
   </div>
-
 </div>
 
 <div class="header">
-  <h1>魔界検索ツール</h1>
+  <img src="images/gazou8.png" class="header-logo" alt="魔界検索ツール">
 </div>
 
 <div class="container">
-
   <div class="desc">
-    魔界検索ツールは
-    <span style="color:#ff7ac3; font-weight:bold;">
-      魔灰えん
-    </span>
-    さんを推す為のツールです！
-
-    <p>ぜひ使ってみてください！</p>
+    魔界検索ツールは <span style="color:#ff7ac3; font-weight:bold;">魔灰えん</span> さんを推す為のツールです！
   </div>
 
-  <div class="section-title">
-    ▼取扱説明書
-  </div>
+  <button class="btn-common reload-inline-btn" onclick="location.reload()">↻ ページを更新</button>
 
-  <button class="guide-btn"
-          onclick="location.href='setumei.html'">
-    取扱説明書
-  </button>
+  <div class="section-title">▼取扱説明書</div>
+  <button class="btn-common guide-btn" onclick="location.href='setumei.html'">取扱説明書を開く</button>
 
-<!-- 日付検索 -->
-<p class="date-title">
-  日付検索
-</p>
-
-<input type="date" id="date">
+  <p style="font-size: 24px; font-weight: bold; margin-bottom: 0;">日付検索</p>
+  <input type="date" id="date">
   
-<div class="section-title">
-  ▼検索ボタン
-</div>
+  <div class="section-title">▼検索ボタン</div>
   
-<!-- 魔灰えん -->
-<div class="box">
-
-  <h2>魔灰えん</h2>
-
-  <div class="mode">
-    <label>
-      <input type="radio"
-             name="mode1"
-             value="or"
-             checked>
-      OR
-    </label>
-
-    <label>
-      <input type="radio"
-             name="mode1"
-             value="exact">
-      完全一致
-    </label>
-  </div>
-
-  <button class="pink"
-          onclick="searchX('魔灰えん','mode1')">
-    X検索
-  </button>
-
-  <button class="yellow"
-          onclick="searchYahoo('魔灰えん')">
-    Yahoo
-  </button>
-
-  <button class="blue"
-          onclick="searchDate('魔灰えん')">
-    日付
-  </button>
-
-  <button class="pink"
-          onclick="postX('魔灰えん')">
-    ポスト
-  </button>
-
-  </div>
-
-  <!-- 魔灰絵 -->
   <div class="box">
+    <h2>魔灰えん</h2>
+    <div class="mode">
+      <label><input type="radio" name="mode1" value="or" checked> OR</label>
+      <label><input type="radio" name="mode1" value="exact"> 完全一致</label>
+    </div>
+    <button class="pink" onclick="searchX('魔灰えん','mode1')">X検索</button>
+    <button class="yellow" onclick="searchYahoo('魔灰えん')">Yahoo</button>
+    <button class="blue" onclick="searchDate('魔灰えん')">日付</button>
+    <button class="pink" onclick="postX('魔灰えん')">ポスト</button>
+  </div>
 
+  <div class="box">
     <h2>魔灰絵</h2>
-
     <div class="mode">
-      <label>
-        <input type="radio"
-               name="mode2"
-               value="or"
-               checked>
-        OR
-      </label>
-
-      <label>
-        <input type="radio"
-               name="mode2"
-               value="exact">
-        完全一致
-      </label>
+      <label><input type="radio" name="mode2" value="or" checked> OR</label>
+      <label><input type="radio" name="mode2" value="exact"> 完全一致</label>
     </div>
-
-    <button class="pink"
-            onclick="searchX('魔灰絵','mode2')">
-      X検索
-    </button>
-
-    <button class="yellow"
-            onclick="searchYahoo('魔灰絵')">
-      Yahoo
-    </button>
-
-    <button class="blue"
-            onclick="searchDate('魔灰絵')">
-      日付
-    </button>
-
-    <button class="pink"
-            onclick="postX('魔灰絵')">
-      ポスト
-    </button>
-
+    <button class="pink" onclick="searchX('魔灰絵','mode2')">X検索</button>
+    <button class="yellow" onclick="searchYahoo('魔灰絵')">Yahoo</button>
+    <button class="blue" onclick="searchDate('魔灰絵')">日付</button>
+    <button class="pink" onclick="postX('魔灰絵')">ポスト</button>
   </div>
 
-  <!-- 新衣装 -->
   <div class="box">
-
     <h2>魔灰えん新衣装お披露目会</h2>
-
     <div class="mode">
-      <label>
-        <input type="radio"
-               name="mode3"
-               value="or"
-               checked>
-        OR
-      </label>
-
-      <label>
-        <input type="radio"
-               name="mode3"
-               value="exact">
-        完全一致
-      </label>
+      <label><input type="radio" name="mode3" value="or" checked> OR</label>
+      <label><input type="radio" name="mode3" value="exact"> 完全一致</label>
     </div>
-
-    <button class="pink"
-            onclick="searchX('魔灰えん新衣装お披露目会','mode3')">
-      X検索
-    </button>
-
-    <button class="yellow"
-            onclick="searchYahoo('魔灰えん新衣装お披露目会')">
-      Yahoo
-    </button>
-
-    <button class="blue"
-            onclick="searchDate('魔灰えん新衣装お披露目会')">
-      日付
-    </button>
-
-    <button class="pink"
-            onclick="postX('魔灰えん新衣装お披露目会')">
-      ポスト
-    </button>
-
+    <button class="pink" onclick="searchX('魔灰えん新衣装お披露目会','mode3')">X検索</button>
+    <button class="yellow" onclick="searchYahoo('魔灰えん新衣装お披露目会')">Yahoo</button>
+    <button class="blue" onclick="searchDate('魔灰えん新衣装お披露目会')">日付</button>
+    <button class="pink" onclick="postX('魔灰えん新衣装お披露目会')">ポスト</button>
   </div>
+
+  <div class="box">
+    <h2>魔灰の素材</h2>
+    <div class="mode">
+      <label><input type="radio" name="mode4" value="or" checked> OR</label>
+      <label><input type="radio" name="mode4" value="exact"> 完全一致</label>
+    </div>
+    <button class="pink" onclick="searchX('魔灰の素材','mode4')">X検索</button>
+    <button class="yellow" onclick="searchYahoo('魔灰の素材')">Yahoo</button>
+    <button class="blue" onclick="searchDate('魔灰の素材')">日付</button>
+    <button class="pink" onclick="postX('魔灰の素材')">ポスト</button>
+  </div>
+
+  <div class="calendar-box">
+    <h2 style="margin:5px 0;">▼魔灰えん スケジュール</h2>
+  </div>
+  <iframe
+    src="https://calendar.google.com/calendar/embed?src=afeb120713660b235cfb63c258081979b1a04fb6fc873aea78c6741550065aa6%40group.calendar.google.com&ctz=Asia%2FTokyo"
+    class="calendar-iframe" frameborder="0" scrolling="no" loading="lazy">
+  </iframe>
+</div>
 
 <div class="footer">
-
   <div class="icons">
-
-    <a href="https://x.com/makaien_vtuber"
-       target="_blank">
-      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/x.svg">
+    <a href="https://x.com/makaien_vtuber" target="_blank" rel="noopener noreferrer">
+      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/x.svg" alt="X">
     </a>
-
-    <a href="https://www.youtube.com/@makaien_vtuber"
-       target="_blank">
-      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg">
+    <a href="https://www.youtube.com/@makaien_vtuber" target="_blank" rel="noopener noreferrer">
+      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube">
     </a>
-
-    <a href="https://www.twitch.tv/makaien_vtuber"
-       target="_blank">
-      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/twitch.svg">
+    <a href="https://www.twitch.tv/makaien_vtuber" target="_blank" rel="noopener noreferrer">
+      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/twitch.svg" alt="Twitch">
     </a>
-
   </div>
 
-  <p>
-    作成者：
-
-    <a href="https://x.com/Akito_tokikawa"
-       target="_blank"
-       style="color:#6ecbff;">
-      Akito_Tokikawa
-    </a>
-  </p>
-
-  <div class="version">
-    ver 1.1.0
-  </div>
-
+  <p>作成者：<a href="https://x.com/Akito_tokikawa" target="_blank" rel="noopener noreferrer">Akito_Tokikawa</a></p>
+  <div style="font-size: 12px; opacity: 0.6;">ver 1.2.6</div>
 </div>
 
 <script>
+// --- 管理設定 ---
+let maintenanceMode =　true; // trueにするとメンテ画面
 
-// =======================
-// メンテON/OFF
-// true = メンテ表示
-// false = 通常表示
-// =======================
-let maintenanceMode =  flash;
-
-// =======================
-// ?dev=1 で貫通
-// =======================
-const urlParams =
-  new URLSearchParams(location.search);
-
-const isDev =
-  urlParams.get("dev") === "1";
-
-// =======================
-// メンテ制御
-// =======================
-function applyMaintenance() {
-
-  if (maintenanceMode && !isDev) {
-
-    document.getElementById(
-      "maintenance"
-    ).style.display = "flex";
-
-    document.body.style.overflow = "hidden";
-  }
+const isDev = new URLSearchParams(location.search).get("dev") === "1";
+if (maintenanceMode && !isDev) {
+  document.getElementById("maintenance").style.display = "flex";
+  document.body.style.overflow = "hidden";
 }
 
-applyMaintenance();
-
-// =======================
-// X検索
-// =======================
+// --- 検索関数 ---
 function searchX(word, group){
-
-  const mode =
-    document.querySelector(
-      `input[name="${group}"]:checked`
-    ).value;
-
-  const query =
-    mode === "or"
-    ? `${word} OR #${word}`
-    : `"${word}" OR "#${word}"`;
-
-  window.open(
-    `https://x.com/search?q=${encodeURIComponent(query)}&f=live`
-  );
+  const mode = document.querySelector(`input[name="${group}"]:checked`).value;
+  const query = (mode === "or") ? `${word} OR #${word}` : `"${word}" OR "#${word}"`;
+  window.open(`https://x.com/search?q=${encodeURIComponent(query)}&f=live`, "_blank");
 }
 
-// =======================
-// Yahoo検索
-// =======================
 function searchYahoo(word){
-
-  window.open(
-    `https://search.yahoo.co.jp/realtime/search?p=${encodeURIComponent(word)}`
-  );
+  window.open(`https://search.yahoo.co.jp/realtime/search?p=${encodeURIComponent(word)}`, "_blank");
 }
 
-// =======================
-// 日付検索
-// =======================
 function searchDate(word){
-
-  const date =
-    document.getElementById("date").value;
-
-  if(!date){
-    alert("日付選んで！");
-    return;
-  }
-
-  const d = new Date(date);
-
+  const dateInput = document.getElementById("date").value;
+  if(!dateInput){ alert("日付を選んでね！"); return; }
+  const d = new Date(dateInput);
+  const since = dateInput; 
   d.setDate(d.getDate() + 1);
-
-  const until =
-    d.toISOString().split("T")[0];
-
-  const query =
-    `${word} since:${date} until:${until}`;
-
-  window.open(
-    `https://x.com/search?q=${encodeURIComponent(query)}&f=live`
-  );
+  const until = d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + ("0" + d.getDate()).slice(-2);
+  const query = `${word} since:${since} until:${until}`;
+  window.open(`https://x.com/search?q=${encodeURIComponent(query)}&f=live`, "_blank");
 }
 
-// =======================
-// ポスト
-// =======================
 function postX(word){
-
   const text = `#${word}`;
-
-  const url =
-    `https://x.com/intent/tweet?text=${encodeURIComponent(text)}`;
-
-  window.open(url, "_blank");
+  window.open(`https://x.com/intent/tweet?text=${encodeURIComponent(text)}`, "_blank");
 }
-
 </script>
 
 </body>
